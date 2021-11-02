@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>mf-root</title>
+</head>
+
+<body>
+  <div class="mainapp">
+    <header class="mainapp-header">
+      <h1>mf-root</h1>
+    </header>
+    <div class="mainapp-main">
+      <ul class="mainapp-sidemenu">
+        <li onclick="push('/mf-subapp2')">React16</li>
+        <li onclick="push('/mf-subapp1')">mf-subapp1</li>
+      </ul>
+      <main id="subapp-container"></main>
+    </div>
+  </div>
+
+  <script>
+    function push(subapp) { history.pushState(null, subapp, subapp) }
+  </script>
+</body>
+
+</html>
