@@ -1,0 +1,10 @@
+{
+  "name": "mf-root",
+  "version": "1.0.0",
+  "description": "POC Root for mfe",
+  "main": "index.js",
+  "repository": "git@github.com:scarabaeus/mf-root.git",
+  "author": "Steve Gomez",
+  "license": "MIT",
+  "private": false
+}
