@@ -37,6 +37,14 @@ module.exports = {
         test: /\.(le|c)ss$/,
         use: ['style-loader', 'css-loader', 'less-loader'],
       },
+      {
+        test: /\.json?$/,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ],
   },
   plugins: [
