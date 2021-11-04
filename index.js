@@ -12,7 +12,7 @@ axios
   .get('/config.json')
   .then((res) => {
     console.log('[platform-root] Initializing application');
-    init({ config: res.data });
+    // init({ config: res.data });
   })
   .catch((err) => {
     console.log('catch', err);
@@ -89,3 +89,25 @@ const init = ({ config }) => {
     console.log('[platform-root] runAfterFirstMounted');
   });
 };
+
+init({
+  config: [
+    {
+      name: 'menu',
+      entry: '//localhost:7100',
+      container: '#menu',
+    },
+    {
+      name: 'mf-subapp1',
+      entry: '//localhost:7101',
+      container: '#viewport',
+      activeRule: '/mf-subapp1',
+    },
+    {
+      name: 'mf-subapp2',
+      entry: '//localhost:7102',
+      container: '#viewport',
+      activeRule: '/mf-subapp2',
+    },
+  ],
+});
