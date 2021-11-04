@@ -8,7 +8,7 @@ import {
 import axios from 'axios';
 import renderApp from './App';
 
-// TODO Call back to root caller and retrieve the config
+// TODO Retrieve the configuration from remote
 axios
   .get('/config.json')
   .then((res) => {
