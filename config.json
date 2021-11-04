@@ -1,0 +1,19 @@
+[
+  {
+    "name": "menu",
+    "entry": "//localhost:7100",
+    "container": "#menu"
+  },
+  {
+    "name": "mf-subapp1",
+    "entry": "//localhost:7101",
+    "container": "#viewport",
+    "activeRule": "/mf-subapp1"
+  },
+  {
+    "name": "mf-subapp2",
+    "entry": "//localhost:7102",
+    "container": "#viewport",
+    "activeRule": "/mf-subapp2"
+  }
+]
