@@ -6,13 +6,14 @@ function Render(props) {
 
   return (
     <>
-      {loading && <h4 className="subapp-loading">Loading...</h4>}
-      <div id="subapp-viewport" />
+      <div id="menu" />
+      <div id="viewport" />
+      {loading && <h4>Loading...</h4>}
     </>
   );
 }
 
 export default function render({ loading }) {
-  const container = document.getElementById('subapp-container');
+  const container = document.getElementById('root');
   ReactDOM.render(<Render loading={loading} />, container);
 }

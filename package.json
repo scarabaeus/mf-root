@@ -9,7 +9,6 @@
   "private": false,
   "scripts": {
     "start": "webpack-dev-server",
-    "start:multiple": "cross-env MODE=multiple webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

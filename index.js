@@ -1,51 +1,87 @@
-import { registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start, initGlobalState } from 'qiankun';
+import {
+  registerMicroApps,
+  runAfterFirstMounted,
+  start,
+  initGlobalState,
+  loadMicroApp,
+} from 'qiankun';
 import render from './render/ReactRender';
 
 render({ loading: true });
 
-const loader = loading => render({ loading });
+const loader = (loading) => render({ loading });
 
-registerMicroApps(
-  [
-    {
-      name: 'mf-subapp2',
-      entry: '//localhost:7102',
-      container: '#subapp-viewport',
-      loader,
-      activeRule: '/mf-subapp2',
-    },
-    {
-      name: 'mf-subapp1',
-      entry: '//localhost:3001',
-      container: '#subapp-viewport',
-      loader,
-      activeRule: '/mf-subapp1',
+// TODO: [platform-root] Temporary configuration options -- retrieve from remote
+const config = [
+  {
+    name: 'menu',
+    entry: '//localhost:7100',
+    container: '#menu',
+  },
+  {
+    name: 'mf-subapp1',
+    entry: '//localhost:7101',
+    container: '#viewport',
+    activeRule: '/mf-subapp1',
+  },
+  {
+    name: 'mf-subapp2',
+    entry: '//localhost:7102',
+    container: '#viewport',
+    activeRule: '/mf-subapp2',
+  },
+];
+
+// Retrieve menu app from configuration
+const getMenuApp = (config) => config.find((app) => app.name === 'menu');
+
+// Create child app list for registration
+const getChildApps = (config) =>
+  config.reduce((acc, app) => {
+    if (app.name !== 'menu') {
+      acc.push({ ...app, loader });
+    }
+    return acc;
+  }, []);
+
+// TODO: [platform-root] Determine if we need any lifecycle events
+registerMicroApps(getChildApps(config), {
+  beforeLoad: [
+    (app) => {
+      console.log(
+        '[platform-root] beforeLoad - %c%s',
+        'color: green;',
+        app.name,
+      );
     },
   ],
-  {
-    beforeLoad: [
-      app => {
-        console.log('[LifeCycle] before load %c%s', 'color: green;', app.name);
-      },
-    ],
-    beforeMount: [
-      app => {
-        console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name);
-      },
-    ],
-    afterUnmount: [
-      app => {
-        console.log('[LifeCycle] after unmount %c%s', 'color: green;', app.name);
-      },
-    ],
-  },
-);
-
-const { onGlobalStateChange, setGlobalState } = initGlobalState({
-  user: 'qiankun',
+  beforeMount: [
+    (app) => {
+      console.log(
+        '[platform-root] beforeMount - %c%s',
+        'color: green;',
+        app.name,
+      );
+    },
+  ],
+  afterUnmount: [
+    (app) => {
+      console.log(
+        '[platform-root] afterUnmount - %c%s',
+        'color: green;',
+        app.name,
+      );
+    },
+  ],
 });
 
-onGlobalStateChange((value, prev) => console.log('[onGlobalStateChange - root]:', value, prev));
+const { onGlobalStateChange, setGlobalState } = initGlobalState({
+  user: 'platform-root',
+});
+
+onGlobalStateChange((value, prev) =>
+  console.log('[platform-root] onGlobalStateChange - ', value, prev),
+);
 
 setGlobalState({
   ignore: 'master',
@@ -54,10 +90,10 @@ setGlobalState({
   },
 });
 
-setDefaultMountApp('/mf-subapp1');
+loadMicroApp(getMenuApp(config));
 
 start();
 
 runAfterFirstMounted(() => {
-  console.log('[mf-root] first app mounted');
+  console.log('[platform-root] runAfterFirstMounted');
 });
