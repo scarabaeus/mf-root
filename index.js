@@ -6,8 +6,9 @@ import {
   loadMicroApp,
 } from 'qiankun';
 import axios from 'axios';
-import render from './render/ReactRender';
+import renderApp from './App';
 
+// TODO Call back to root caller and retrieve the config
 axios
   .get('/config.json')
   .then((res) => {
@@ -18,9 +19,9 @@ axios
     console.log('catch', err);
   });
 
-render({ loading: true });
+renderApp({ loading: true });
 
-const loader = (loading) => render({ loading });
+const loader = (loading) => renderApp({ loading });
 
 // Retrieve menu app from configuration
 const getMenuApp = (config) => config.find((app) => app.name === 'menu');
