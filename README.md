@@ -2,8 +2,9 @@
 
 Evaluation project from qiankun
 
-### Child apps:
+### Apps:
 
+- mf-root
 - mf-menu
 - mf-subapp1
 - mf-subapp2
